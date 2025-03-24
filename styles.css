@@ -45,6 +45,13 @@ body {
 	box-sizing: border-box;
 }
 
+#ui button:focus,
+#ui button:active {
+	color: #780000;
+	border: 10px dotted #780000;
+	background-color: #f2d8a4;
+}
+
 #plus {
 	height: 30vh;
 	width: 100%;
