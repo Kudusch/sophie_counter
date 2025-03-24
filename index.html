@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<title>Sophie Scarf Counter</title>
+	<meta charset='utf-8'>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="initial-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="stylesheet" href="styles.css">
+	<script>
+		if (localStorage.getItem("division_size") === null) {
+			window.localStorage.setItem("division_size", 8);
+		}
+		let division_size = window.localStorage.getItem("division_size");
+
+		if (localStorage.getItem("total_count") === null) {
+			window.localStorage.setItem("total_count", 1);
+		}
+		let total_count = parseInt(window.localStorage.getItem("total_count"));
+
+		if (localStorage.getItem("division_count") === null) {
+			window.localStorage.setItem("division_count", total_count % division_size);
+		}
+		let division_count = parseInt(window.localStorage.getItem("division_count"));
+
+		if (localStorage.getItem("cur_direction") === null) {
+			window.localStorage.setItem("cur_direction", "increase");
+		}
+		let cur_direction = window.localStorage.getItem("cur_direction");
+
+		let button_timer;
+
+
+		function update_ui() {
+			if (division_count == 0) {
+				indicator.style.display = "block";
+				division.style.display = "none";
+			} else {
+				indicator.style.display = "none";
+				division.style.display = "block";
+			}
+
+			document.querySelector("#total span.value").innerHTML = total_count;
+			document.querySelector("#division span.value").innerHTML = division_size - division_count;
+			document.querySelectorAll("span.direction").forEach(function(value) {
+				value.innerHTML = cur_direction;
+			});
+
+			if (cur_direction == "increase") {
+				settings.querySelectorAll("p")[0].style.color = "#669bbc";
+				settings.querySelectorAll("p")[1].style.color = "#003049";
+			} else {
+				settings.querySelectorAll("p")[1].style.color = "#669bbc";
+				settings.querySelectorAll("p")[0].style.color = "#003049";
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div id="display">
+		<div id="total" class="counter">You are starting row <span class="value">1</span></div>
+		<div id="indicator"><span class="direction"></span> in this round!</div>
+		<div id="division" class="counter"><span class="value">8</span> rows to go until next
+			<span class="direction"></span>
+		</div>
+	</div>
+	<div id="ui">
+		<button id="plus">+</button>
+		<button id="undo">-</button>
+		<button id="reset">Reset</button>
+	</div>
+	</div>
+	<div id="settings">
+		<p>Increase</p>
+		<label class="switch">
+			<input id="direction" type="checkbox">
+			<span class="slider"></span>
+		</label>
+		<p>Decrease</p>
+	</div>
+</body>
+<script>
+	update_ui();
+
+	plus.onclick = function() {
+		total_count += 1;
+		division_count = total_count % 8;
+		window.localStorage.setItem("total_count", total_count);
+		window.localStorage.setItem("division_count", division_count);
+
+		update_ui();
+	};
+	undo.onclick = function() {
+		total_count -= 1;
+		division_count = total_count % 8;
+		window.localStorage.setItem("total_count", total_count);
+		window.localStorage.setItem("division_count", division_count);
+
+		update_ui();
+	};
+
+	reset.onclick = function() {
+		if (confirm("Reset?") == true) {
+			total_count = 1;
+			division_count = total_count % division_size;
+			window.localStorage.setItem("total_count", total_count);
+			window.localStorage.setItem("division_count", division_count);
+			update_ui();
+		}
+	};
+
+	direction.onclick = function() {
+		if (cur_direction == "increase") {
+			cur_direction = "decrease";
+			settings.querySelectorAll("p")[1].style.color = "#669bbc";
+			settings.querySelectorAll("p")[0].style.color = "#003049";
+		} else {
+			cur_direction = "increase";
+			settings.querySelectorAll("p")[0].style.color = "#669bbc";
+			settings.querySelectorAll("p")[1].style.color = "#003049";
+		}
+		update_ui();
+	}
+</script>
+
+</html>
