@@ -41,29 +41,43 @@
 				division.style.display = "block";
 			}
 
+			if (cur_direction == "increase") {
+				settings.querySelectorAll("p")[0].style.color = "#669bbc";
+				settings.querySelectorAll("p")[1].style.color = "#003049";
+				direction.checked = false;
+
+			} else {
+				settings.querySelectorAll("p")[0].style.color = "#003049";
+				settings.querySelectorAll("p")[1].style.color = "#669bbc";
+				direction.checked = true;
+			}
+
 			document.querySelector("#total span.value").innerHTML = total_count;
 			document.querySelector("#division span.value").innerHTML = division_size - division_count;
 			document.querySelectorAll("span.direction").forEach(function(value) {
 				value.innerHTML = cur_direction;
 			});
 
-			if (cur_direction == "increase") {
-				settings.querySelectorAll("p")[0].style.color = "#669bbc";
-				settings.querySelectorAll("p")[1].style.color = "#003049";
+			if (total_count % 2) {
+				plus.style.setProperty("background-color", "#780000", "important");
+				plus.style.setProperty("color", "#fdf0d5", "important");
+				plus.style.setProperty("border", "10px dotted #fdf0d5", "important");
 			} else {
-				settings.querySelectorAll("p")[1].style.color = "#669bbc";
-				settings.querySelectorAll("p")[0].style.color = "#003049";
+				plus.style.setProperty("background-color", "#fdf0d5", "important");
+				plus.style.setProperty("color", "#780000", "important");
+				plus.style.setProperty("border", "10px dotted #780000", "important");
 			}
+
 		}
 	</script>
 </head>
 
 <body ontouchstart="">
 	<div id="display">
-		<div id="total" class="counter">You are starting row <span class="value">1</span></div>
-		<div id="indicator"><span class="direction"></span> in this round!</div>
-		<div id="division" class="counter"><span class="value">8</span> rows to go until next
-			<span class="direction"></span>
+		<div id="total" class="counter">You are starting<br>row <span class="value">1</span>.</div>
+		<div id="indicator"><span class="direction"></span><br>in this round!</div>
+		<div id="division" class="counter"><span class="value">8</span> rows to go<br>until next
+			<span class="direction"></span>.
 		</div>
 	</div>
 	<div id="ui">
@@ -121,6 +135,7 @@
 			settings.querySelectorAll("p")[0].style.color = "#669bbc";
 			settings.querySelectorAll("p")[1].style.color = "#003049";
 		}
+		window.localStorage.setItem("cur_direction", cur_direction);
 		update_ui();
 	}
 </script>
