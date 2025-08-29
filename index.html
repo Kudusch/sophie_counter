@@ -5,8 +5,9 @@
 	<title>Sophie Scarf Counter</title>
 	<meta charset='utf-8'>
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="viewport" content="initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="apple-touch-icon" sizes="512x512" href="apple-touch-icon.png">
 	<link rel="stylesheet" href="styles.css">
 	<script>
 		if (localStorage.getItem("division_size") === null) {
@@ -74,27 +75,43 @@
 
 <body ontouchstart="">
 	<div id="display">
-		<div id="total" class="counter">You are starting<br>row <span class="value">1</span>.</div>
-		<div id="indicator"><span class="direction"></span><br>in this round!</div>
-		<div id="division" class="counter"><span class="value">8</span> rows to go<br>until next
-			<span class="direction"></span>.
+		<div id="total" class="counter">
+			<p>You are starting<br>row <span class="value">1</span>.</p>
+		</div>
+		<div id="indicator">
+			<p><span class="direction"></span><br>in this round!</p>
+		</div>
+		<div id="division" class="counter">
+			<p>
+				<span class="value">8</span> rows to go<br>until next <span class="direction"></span>.
+			</p>
 		</div>
 	</div>
 	<div id="ui">
-		<button id="plus">+</button>
-		<button id="undo">-</button>
-		<button id="reset">Reset</button>
+		<button id="plus">
+			<p>+</p>
+		</button>
+		<button id="undo">
+			<p>-</p>
+		</button>
+		<button id="reset">
+			<p>Reset</p>
+		</button>
 	</div>
 	</div>
 	<div id="settings">
 		<p>Increase</p>
 		<label class="switch">
-			<input id="direction" type="checkbox">
+			<input id="direction" class="toggle" type="checkbox">
 			<span class="slider"></span>
 		</label>
 		<p>Decrease</p>
 	</div>
+	<footer>
+		<p>Made by <a href="https://kudusch.de/" target="_blank">Kudusch</a> with love. Code and info on <a href="https://github.com/Kudusch/sophie_counter" target="_blank">Github</a>.</p>
+	</footer>
 </body>
+
 <script>
 	update_ui();
 

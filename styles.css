@@ -1,80 +1,114 @@
+:root {
+	--dark-blue: #003049;
+	--light-blue: #669bbc;
+	--dark-red: #780000;
+	--light-red: #c1121f;
+	--dark-sand: #f2d8a4;
+	--light-sand: #fdf0d5;
+}
+
+html {
+	display: flex;
+	align-items: center;
+	height: 100vh;
+	overscroll-behavior: none;
+}
+
 body {
-	height: 90vh;
-	margin: 0;
-	padding-top: 40px;
-	background-color: #fdf0d5;
-	font-family: ui-rounded;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	touch-action: none;
-	color: #003049;
+
+	width: 100%;
+	max-width: 600px;
+	margin: auto;
+	background-color: var(--light-sand);
+
+	touch-action: manipulation;
+
+	font-family: ui-rounded;
+	color: var(--dark-blue);
+	font-size: clamp(1.8rem, 1.383rem + 2.087vw, 3rem);
 }
 
-#display {}
+a,
+a:visited {
+	color: var(--light-blue);
+}
 
 #display div {
 	text-align: center;
 	display: block;
-	width: 100vw;
-	font-size: 2.2em;
+	width: 100%;
 	margin-bottom: 20px;
+}
+
+#display p {
+	margin: 0;
 }
 
 #display #indicator {
 	display: none;
-	color: #780000;
+	color: var(--dark-red);
 }
 
 #display span.value {
-	color: #669bbc;
+	color: var(--light-blue);
 	font-weight: bold;
 }
 
-#ui button {
+button {
 	font-weight: bold;
 	border: 0;
 	border-radius: 0;
 	background: none;
-	border: 10px dotted #c1121f;
+	border: 10px dotted var(--light-red);
 	-webkit-appearance: none;
 	padding: 0px;
 	margin: 0;
 	margin-bottom: 10px;
 	font-family: ui-rounded;
-	color: #c1121f;
+	color: var(--light-red);
 	box-sizing: border-box;
 }
 
-#ui button:focus,
-#ui button:active {
-	color: #780000;
-	border: 10px dotted #780000;
-	background-color: #f2d8a4;
+button p {
+	margin: 0;
+}
+
+button:focus,
+button:active {
+	color: var(--dark-red);
+	border: 10px dotted var(--dark-red);
+	background-color: var(--dark-sand);
 }
 
 #plus {
-	color: #780000;
-	border: 10px dotted #780000;
+	color: var(--dark-red);
+	font-size: 5.7em;
+	border: 10px dotted var(--dark-red);
 	height: 30vh;
 	width: 100%;
-	font-size: 35vw;
+}
+
+#plus p {
+	transform: translateY(-20px);
 }
 
 #undo {
+	font-size: 1em;
 	height: 10vh;
 	width: 50%;
 	float: left;
-	font-size: 8vw;
-	border-right: 5px dotted #c1121f !important;
+	border-right: 5px dotted var(--light-red) !important;
 }
 
 #reset {
+	font-size: 1em;
 	height: 10vh;
 	width: 50%;
 	float: right;
-	font-size: 5vw;
-	border-left: 5px dotted #c1121f !important;
+	border-left: 5px dotted var(--light-red) !important;
 }
 
 #settings {
@@ -83,51 +117,67 @@ body {
 	align-items: center;
 	justify-content: center;
 	column-gap: 20px;
-	font-size: 5vw;
 	bottom: 0px;
-	color: #003049;
+	color: var(--dark-blue);
+	font-size: .8em;
 }
 
-/* The switch - the box around the slider */
+/* https://danklammer.com/articles/simple-css-toggle-switch/ */
 .switch {
+	display: flex;
+}
+
+.toggle {
+	appearance: none;
 	position: relative;
 	display: inline-block;
-	width: 150px;
-	height: 80px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-/* The slider */
-.slider {
-	position: absolute;
+	box-sizing: content-box;
+	width: 4.5em;
+	height: 2em;
+	padding: 0.2em;
+	border: none;
 	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #003049;
-	-webkit-transition: .4s;
-	transition: .4s;
+	border-radius: 1.5em;
+	overflow: hidden;
+	background-color: var(--light-red);
+	transition: background ease 0.3s;
 }
 
-.slider:before {
+.toggle:before {
+	content: "↓↓ ↑↑";
+	display: block;
 	position: absolute;
-	content: "";
-	height: 72px;
-	width: 50px;
-	left: 4px;
-	bottom: 4px;
-	background-color: #669bbc;
-	-webkit-transition: .4s;
-	transition: .4s;
+	z-index: 2;
+	width: 2em;
+	height: 2em;
+	font-family: system-ui;
+	font-size: 1em;
+	line-height: 2em;
+	font-weight: 500;
+	text-transform: uppercase;
+	text-indent: -2em;
+	word-spacing: 2.55em;
+	text-shadow: -1px -1px rgba(0, 0, 0, 0.15);
+	white-space: nowrap;
+	background: #fff;
+	color: #fff;
+	border-radius: 1.5em;
+	transition: transform cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
 }
 
-input:checked+.slider:before {
-	transform: translateX(92px);
+.toggle:checked {
+	background-color: var(--dark-red);
+}
+
+.toggle:checked:before {
+	transform: translateX(2.5em);
+}
+
+footer {
+	font-size: .5em;
+	max-width: 600px;
+	width: 100%;
+	bottom: 0;
+	margin: auto;
+	text-align: center;
 }
